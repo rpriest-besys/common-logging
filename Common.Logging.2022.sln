@@ -6,6 +6,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonLogging", "CommonLogg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging.Core", "src\Common.Logging.Core\Common.Logging.Core.csproj", "{CADFB630-279F-427C-96A9-D2F9AA718648}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging.2010", "src\Common.Logging\Common.Logging.2010.csproj", "{440D903A-D409-48FC-A6C4-3EE69CCD663B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -16,12 +18,17 @@ Global
 		{CADFB630-279F-427C-96A9-D2F9AA718648}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CADFB630-279F-427C-96A9-D2F9AA718648}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CADFB630-279F-427C-96A9-D2F9AA718648}.Release|Any CPU.Build.0 = Release|Any CPU
+		{440D903A-D409-48FC-A6C4-3EE69CCD663B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{440D903A-D409-48FC-A6C4-3EE69CCD663B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{440D903A-D409-48FC-A6C4-3EE69CCD663B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{440D903A-D409-48FC-A6C4-3EE69CCD663B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CADFB630-279F-427C-96A9-D2F9AA718648} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{440D903A-D409-48FC-A6C4-3EE69CCD663B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {49A3AC67-29AB-4305-8ADA-B78757DC6807}

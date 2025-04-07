@@ -1,0 +1,158 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net20;net472</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Common</RootNamespace>
+    <AssemblyName>Common.Logging</AssemblyName>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <AssemblyOriginatorKeyFile>Common.Net.snk</AssemblyOriginatorKeyFile>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>Common.Logging.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1607</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>Common.Logging.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>1607</NoWarn>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Common.Logging.Portable\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\CoverageExcludeAttribute.cs">
+      <Link>CoverageExcludeAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\ConfigurationException.cs">
+      <Link>Logging\ConfigurationException.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Configuration\ArgUtils.cs">
+      <Link>Logging\Configuration\ArgUtils.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Configuration\DefaultConfigurationReader.cs">
+      <Link>Logging\Configuration\DefaultConfigurationReader.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Configuration\FactoryAdapterConfiguration.cs">
+      <Link>Logging\Configuration\FactoryAdapterConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Configuration\LogConfiguration.cs">
+      <Link>Logging\Configuration\LogConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Configuration\LogConfigurationReader.cs">
+      <Link>Logging\Configuration\LogConfigurationReader.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Configuration\LogSetting.cs">
+      <Link>Logging\Configuration\LogSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Configuration\NameValueCollection.cs">
+      <Link>Logging\Configuration\NameValueCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Configuration\NameValueCollectionHelper.cs">
+      <Link>Logging\Configuration\NameValueCollectionHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Factory\AbstractCachingLoggerFactoryAdapter.cs">
+      <Link>Logging\Factory\AbstractCachingLoggerFactoryAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Factory\AbstractLogger.cs">
+      <Link>Logging\Factory\AbstractLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\LogManager.cs">
+      <Link>Logging\LogManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Simple\AbstractSimpleLogger.cs">
+      <Link>Logging\Simple\AbstractSimpleLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Simple\AbstractSimpleLoggerFactoryAdapter.cs">
+      <Link>Logging\Simple\AbstractSimpleLoggerFactoryAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Simple\CapturingLogger.cs">
+      <Link>Logging\Simple\CapturingLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Simple\CapturingLoggerEvent.cs">
+      <Link>Logging\Simple\CapturingLoggerEvent.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Simple\CapturingLoggerFactoryAdapter.cs">
+      <Link>Logging\Simple\CapturingLoggerFactoryAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Simple\DebugLogger.cs">
+      <Link>Logging\Simple\DebugLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Simple\DebugLoggerFactoryAdapter.cs">
+      <Link>Logging\Simple\DebugLoggerFactoryAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Simple\ExceptionFormatter.cs">
+      <Link>Logging\Simple\ExceptionFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Simple\NoOpLogger.cs">
+      <Link>Logging\Simple\NoOpLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Simple\NoOpLoggerFactoryAdapter.cs">
+      <Link>Logging\Simple\NoOpLoggerFactoryAdapter.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Simple\NoOpNestedVariablesContext.cs">
+      <Link>Logging\Simple\NoOpNestedVariablesContext.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.Portable\Logging\Simple\NoOpVariablesContext.cs">
+      <Link>Logging\Simple\NoOpVariablesContext.cs</Link>
+    </Compile>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Common.Net.snk" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common.Logging.Core\Common.Logging.Core.csproj" />
+  </ItemGroup>
+</Project>
