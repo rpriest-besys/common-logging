@@ -6,7 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommonLogging", "CommonLogg
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging.Core", "src\Common.Logging.Core\Common.Logging.Core.csproj", "{CADFB630-279F-427C-96A9-D2F9AA718648}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging.2010", "src\Common.Logging\Common.Logging.2010.csproj", "{440D903A-D409-48FC-A6C4-3EE69CCD663B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging", "src\Common.Logging\Common.Logging.csproj", "{440D903A-D409-48FC-A6C4-3EE69CCD663B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
