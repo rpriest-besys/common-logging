@@ -30,10 +30,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Rhino.Mocks, Version=3.5.0.1337, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\net\2.0\Rhino.Mocks.dll</HintPath>
-    </Reference>
     <Reference Include="System.configuration" />
     <Reference Include="System.Web" />
   </ItemGroup>
@@ -63,6 +59,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Rhino.Mocks.Standard" Version="1.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\Common.Logging.Core\Common.Logging.Core.csproj" />
