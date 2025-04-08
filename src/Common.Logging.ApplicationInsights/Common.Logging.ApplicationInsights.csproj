@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net472</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Common.Logging.ApplicationInsights</RootNamespace>
+    <AssemblyName>Common.Logging.ApplicationInsights</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DocumentationFile>Common.Logging.ApplicationInsights.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>Common.Logging.ApplicationInsights.XML</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.Net" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Common.Logging.ApplicationInsights0170\Logging\ApplicationInsights\ApplicationInsightsLogger.cs">
+      <Link>Logging\ApplicationInsights\ApplicationInsightsLogger.cs</Link>
+    </Compile>
+    <Compile Include="..\Common.Logging.ApplicationInsights0170\Logging\ApplicationInsights\ApplicationInsightsLoggerFactoryAdapter.cs">
+      <Link>Logging\ApplicationInsights\ApplicationInsightsLoggerFactoryAdapter.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.4.0" />
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="4.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common.Logging.Core\Common.Logging.Core.csproj" />
+    <ProjectReference Include="..\Common.Logging\Common.Logging.csproj" />
+  </ItemGroup>
+</Project>
