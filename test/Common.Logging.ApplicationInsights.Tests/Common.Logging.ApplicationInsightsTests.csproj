@@ -3,7 +3,7 @@
     <TargetFramework>net472</TargetFramework>
     <OutputType>Library</OutputType>
     <RootNamespace>Common.Logging.ApplicationInsights.Tests</RootNamespace>
-    <AssemblyName>Common.Logging.ApplicationInsights240.Tests</AssemblyName>
+    <AssemblyName>Common.Logging.ApplicationInsights.Tests</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
