@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationInsights", "Appl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging.ApplicationInsights", "src\Common.Logging.ApplicationInsights\Common.Logging.ApplicationInsights.csproj", "{67499038-2FAF-4320-B75F-D78AC1A2C776}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Logging.ApplicationInsightsTests", "test\Common.Logging.ApplicationInsights.Tests\Common.Logging.ApplicationInsightsTests.csproj", "{9FB19C8B-D224-4A06-B108-177E328EBAAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{67499038-2FAF-4320-B75F-D78AC1A2C776}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67499038-2FAF-4320-B75F-D78AC1A2C776}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67499038-2FAF-4320-B75F-D78AC1A2C776}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FB19C8B-D224-4A06-B108-177E328EBAAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FB19C8B-D224-4A06-B108-177E328EBAAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FB19C8B-D224-4A06-B108-177E328EBAAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FB19C8B-D224-4A06-B108-177E328EBAAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -38,6 +44,7 @@ Global
 		{CADFB630-279F-427C-96A9-D2F9AA718648} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{440D903A-D409-48FC-A6C4-3EE69CCD663B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{67499038-2FAF-4320-B75F-D78AC1A2C776} = {86380412-B7E2-4940-A70A-2379D6C58CB1}
+		{9FB19C8B-D224-4A06-B108-177E328EBAAD} = {86380412-B7E2-4940-A70A-2379D6C58CB1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {49A3AC67-29AB-4305-8ADA-B78757DC6807}
