@@ -24,6 +24,7 @@ using System.Diagnostics;
 using Common.TestUtil;
 using Common.Logging.Configuration;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Common.Logging.Simple
 {
@@ -46,16 +47,16 @@ namespace Common.Logging.Simple
         public void AssertDefaultSettings()
         {
             ILog log = LogManager.GetCurrentClassLogger();
-            Assert.IsNotNull(log);
-            Assert.IsInstanceOf<TraceLogger>(log);
+            ClassicAssert.IsNotNull(log);
+            ClassicAssert.IsInstanceOf<TraceLogger>(log);
 
             // Can we call level checkers with no exceptions?
-            Assert.IsTrue(log.IsTraceEnabled);
-            Assert.IsTrue(log.IsDebugEnabled);
-            Assert.IsTrue(log.IsInfoEnabled);
-            Assert.IsTrue(log.IsWarnEnabled);
-            Assert.IsTrue(log.IsErrorEnabled);
-            Assert.IsTrue(log.IsFatalEnabled);
+            ClassicAssert.IsTrue(log.IsTraceEnabled);
+            ClassicAssert.IsTrue(log.IsDebugEnabled);
+            ClassicAssert.IsTrue(log.IsInfoEnabled);
+            ClassicAssert.IsTrue(log.IsWarnEnabled);
+            ClassicAssert.IsTrue(log.IsErrorEnabled);
+            ClassicAssert.IsTrue(log.IsFatalEnabled);
         }
 
         [Test]
@@ -63,18 +64,18 @@ namespace Common.Logging.Simple
         {
             Console.WriteLine("Config:"+ AppDomain.CurrentDomain.SetupInformation.ConfigurationFile);
 
-            Assert.AreEqual("FromAppConfig", ConfigurationManager.AppSettings["appConfigCheck"]);
+            ClassicAssert.AreEqual("FromAppConfig", ConfigurationManager.AppSettings["appConfigCheck"]);
 
             // just ensure, that <system.diagnostics> is configured for our test
             Trace.Refresh();
             TraceSource ts = new TraceSource("TraceLoggerTests", SourceLevels.All);
-            Assert.AreEqual(1, ts.Listeners.Count);
-            Assert.AreEqual(typeof(CapturingTraceListener), ts.Listeners[0].GetType());
+            ClassicAssert.AreEqual(1, ts.Listeners.Count);
+            ClassicAssert.AreEqual(typeof(CapturingTraceListener), ts.Listeners[0].GetType());
 
             CapturingTraceListener.Events.Clear();
             ts.TraceEvent(TraceEventType.Information, 0, "message");
-            Assert.AreEqual(TraceEventType.Information, CapturingTraceListener.Events[0].EventType);
-            Assert.AreEqual("message", CapturingTraceListener.Events[0].FormattedMessage);
+            ClassicAssert.AreEqual(TraceEventType.Information, CapturingTraceListener.Events[0].EventType);
+            ClassicAssert.AreEqual("message", CapturingTraceListener.Events[0].FormattedMessage);
 
             // reset events and set loggerFactoryAdapter
             CapturingTraceListener.Events.Clear();
@@ -86,8 +87,8 @@ namespace Common.Logging.Simple
 
             ILog log = LogManager.GetLogger("TraceLoggerTests");            
             log.WarnFormat("info {0}", "arg");
-            Assert.AreEqual(TraceEventType.Warning, CapturingTraceListener.Events[0].EventType);
-            Assert.AreEqual("[WARN]  TraceLoggerTests - info arg", CapturingTraceListener.Events[0].FormattedMessage);
+            ClassicAssert.AreEqual(TraceEventType.Warning, CapturingTraceListener.Events[0].EventType);
+            ClassicAssert.AreEqual("[WARN]  TraceLoggerTests - info arg", CapturingTraceListener.Events[0].FormattedMessage);
         }
     }
 }

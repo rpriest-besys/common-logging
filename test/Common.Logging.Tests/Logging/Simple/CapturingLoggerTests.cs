@@ -19,6 +19,7 @@
 #endregion
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Common.Logging.Simple
 {
@@ -33,12 +34,12 @@ namespace Common.Logging.Simple
         {
             CapturingLoggerFactoryAdapter adapter = new CapturingLoggerFactoryAdapter();
             CapturingLogger testLogger = (CapturingLogger) adapter.GetLogger("test");
-            Assert.AreEqual(LogLevel.All, testLogger.CurrentLogLevel);
+            ClassicAssert.AreEqual(LogLevel.All, testLogger.CurrentLogLevel);
             testLogger.Trace("message1");
-            Assert.AreEqual(1, testLogger.LoggerEvents.Count);
+            ClassicAssert.AreEqual(1, testLogger.LoggerEvents.Count);
             testLogger.CurrentLogLevel = LogLevel.Debug;
             testLogger.Trace("message2"); // not logged!
-            Assert.AreEqual("message1", testLogger.LastEvent.MessageObject);
+            ClassicAssert.AreEqual("message1", testLogger.LastEvent.MessageObject);
         }
 
         [Test]
@@ -48,14 +49,14 @@ namespace Common.Logging.Simple
             CapturingLogger testLogger = (CapturingLogger) adapter.GetLogger("test");
             testLogger.Trace("message1");
             testLogger.Trace("message2");
-            Assert.IsNotNull(testLogger.LastEvent);
-            Assert.AreEqual(2, testLogger.LoggerEvents.Count);
+            ClassicAssert.IsNotNull(testLogger.LastEvent);
+            ClassicAssert.AreEqual(2, testLogger.LoggerEvents.Count);
 
             testLogger.ClearLastEvent();
-            Assert.IsNull(testLogger.LastEvent);
+            ClassicAssert.IsNull(testLogger.LastEvent);
             testLogger.Clear();
-            Assert.IsNull(testLogger.LastEvent);
-            Assert.AreEqual(0, testLogger.LoggerEvents.Count);
+            ClassicAssert.IsNull(testLogger.LastEvent);
+            ClassicAssert.AreEqual(0, testLogger.LoggerEvents.Count);
         }
 
         [Test]
@@ -65,14 +66,14 @@ namespace Common.Logging.Simple
             CapturingLogger testLogger = (CapturingLogger) adapter.GetLogger("test");
             testLogger.Trace("message1");
             testLogger.Trace("message2");
-            Assert.IsNotNull(adapter.LastEvent);
-            Assert.AreEqual(2, adapter.LoggerEvents.Count);
+            ClassicAssert.IsNotNull(adapter.LastEvent);
+            ClassicAssert.AreEqual(2, adapter.LoggerEvents.Count);
 
             adapter.ClearLastEvent();
-            Assert.IsNull(adapter.LastEvent);
+            ClassicAssert.IsNull(adapter.LastEvent);
             adapter.Clear();
-            Assert.IsNull(adapter.LastEvent);
-            Assert.AreEqual(0, adapter.LoggerEvents.Count);
+            ClassicAssert.IsNull(adapter.LastEvent);
+            ClassicAssert.AreEqual(0, adapter.LoggerEvents.Count);
         }
 
         [Test]
@@ -83,16 +84,16 @@ namespace Common.Logging.Simple
             testLogger.Trace("message1");
             testLogger.Trace("message2");
 
-            Assert.AreEqual(2, testLogger.LoggerEvents.Count);
-            Assert.AreEqual("message2", testLogger.LastEvent.MessageObject);
-            Assert.AreEqual("message1", testLogger.LoggerEvents[0].MessageObject);
-            Assert.AreEqual("message2", testLogger.LoggerEvents[1].MessageObject);
+            ClassicAssert.AreEqual(2, testLogger.LoggerEvents.Count);
+            ClassicAssert.AreEqual("message2", testLogger.LastEvent.MessageObject);
+            ClassicAssert.AreEqual("message1", testLogger.LoggerEvents[0].MessageObject);
+            ClassicAssert.AreEqual("message2", testLogger.LoggerEvents[1].MessageObject);
 
             testLogger.ClearLastEvent();
-            Assert.IsNull(testLogger.LastEvent);
+            ClassicAssert.IsNull(testLogger.LastEvent);
             testLogger.Clear();
-            Assert.IsNull(testLogger.LastEvent);
-            Assert.AreEqual(0, testLogger.LoggerEvents.Count);
+            ClassicAssert.IsNull(testLogger.LastEvent);
+            ClassicAssert.AreEqual(0, testLogger.LoggerEvents.Count);
         }
 
         [Test]
@@ -104,15 +105,15 @@ namespace Common.Logging.Simple
             testLogger.Trace("message1");
             test2Logger.Trace("message2");
 
-            Assert.AreEqual(1, testLogger.LoggerEvents.Count);
-            Assert.AreEqual("message1", testLogger.LastEvent.MessageObject);
-            Assert.AreEqual(1, test2Logger.LoggerEvents.Count);
-            Assert.AreEqual("message2", test2Logger.LastEvent.MessageObject);
+            ClassicAssert.AreEqual(1, testLogger.LoggerEvents.Count);
+            ClassicAssert.AreEqual("message1", testLogger.LastEvent.MessageObject);
+            ClassicAssert.AreEqual(1, test2Logger.LoggerEvents.Count);
+            ClassicAssert.AreEqual("message2", test2Logger.LastEvent.MessageObject);
 
-            Assert.AreEqual(2, adapter.LoggerEvents.Count);
-            Assert.AreEqual("message1", adapter.LoggerEvents[0].MessageObject);
-            Assert.AreEqual(1, test2Logger.LoggerEvents.Count);
-            Assert.AreEqual("message2", adapter.LoggerEvents[1].MessageObject);
+            ClassicAssert.AreEqual(2, adapter.LoggerEvents.Count);
+            ClassicAssert.AreEqual("message1", adapter.LoggerEvents[0].MessageObject);
+            ClassicAssert.AreEqual(1, test2Logger.LoggerEvents.Count);
+            ClassicAssert.AreEqual("message2", adapter.LoggerEvents[1].MessageObject);
         }
 
         protected override ILoggerFactoryAdapter GetLoggerFactoryAdapter()

@@ -20,6 +20,7 @@
 
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Common.Logging.Configuration
 {
@@ -32,11 +33,11 @@ namespace Common.Logging.Configuration
         [Test]
         public void ctor_NullConfiguration_ThrowsArgumentNull()
         {
-            var ex = Assert.Throws<ArgumentNullException>(() => {
+            var ex = ClassicAssert.Throws<ArgumentNullException>(() => {
                 var reader = new LogConfigurationReader(null);
             });
 
-            Assert.AreEqual("configuration", ex.ParamName);
+            ClassicAssert.AreEqual("configuration", ex.ParamName);
         }
 
         [Test]
@@ -46,7 +47,7 @@ namespace Common.Logging.Configuration
 
             var reader = new LogConfigurationReader(config);
 
-            Assert.Throws<ConfigurationException>(() => reader.GetSection(null));
+            ClassicAssert.Throws<ConfigurationException>(() => reader.GetSection(null));
         }
 
         [Test]
@@ -59,7 +60,7 @@ namespace Common.Logging.Configuration
 
             var reader = new LogConfigurationReader(config);
 
-            Assert.Throws<ConfigurationException>(() => reader.GetSection(null));
+            ClassicAssert.Throws<ConfigurationException>(() => reader.GetSection(null));
         }
 
         [Test]
@@ -75,7 +76,7 @@ namespace Common.Logging.Configuration
 
             var reader = new LogConfigurationReader(config);
 
-            Assert.Throws<ConfigurationException>(() => reader.GetSection(null));
+            ClassicAssert.Throws<ConfigurationException>(() => reader.GetSection(null));
         }
 
         [Test]
@@ -91,7 +92,7 @@ namespace Common.Logging.Configuration
 
             var reader = new LogConfigurationReader(config);
 
-            Assert.Throws<ConfigurationException>(() => reader.GetSection(null));
+            ClassicAssert.Throws<ConfigurationException>(() => reader.GetSection(null));
         }
 
         [Test]
@@ -109,8 +110,8 @@ namespace Common.Logging.Configuration
 
             var result = reader.GetSection(null) as LogSetting;
 
-            Assert.NotNull(result);
-            Assert.AreEqual(typeof(FakeFactoryAdapter), result.FactoryAdapterType);
+            ClassicAssert.NotNull(result);
+            ClassicAssert.AreEqual(typeof(FakeFactoryAdapter), result.FactoryAdapterType);
         }
 
         [Test]
@@ -128,8 +129,8 @@ namespace Common.Logging.Configuration
 
             var result = reader.GetSection(null) as LogSetting;
 
-            Assert.NotNull(result);
-            Assert.IsNull(result.Properties);
+            ClassicAssert.NotNull(result);
+            ClassicAssert.IsNull(result.Properties);
         }
 
         [Test]
@@ -151,8 +152,8 @@ namespace Common.Logging.Configuration
 
             var result = reader.GetSection(null) as LogSetting;
 
-            Assert.NotNull(result);
-            Assert.AreEqual("value1", result.Properties["arg1"]);
+            ClassicAssert.NotNull(result);
+            ClassicAssert.AreEqual("value1", result.Properties["arg1"]);
         }
 
         #region Helpers

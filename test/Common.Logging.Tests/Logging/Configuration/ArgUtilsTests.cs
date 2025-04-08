@@ -22,6 +22,7 @@ using System;
 using System.Collections.Specialized;
 using System.Runtime.Serialization;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Common.Logging.Configuration
 {
@@ -37,29 +38,29 @@ namespace Common.Logging.Configuration
             NameValueCollection nvc = new NameValueCollection();
             nvc["key"] = "value";
 
-            Assert.AreEqual( null,  ArgUtils.GetValue(null, "key"));
-            Assert.AreEqual("value", ArgUtils.GetValue(nvc, "key"));
-            Assert.AreEqual(null, ArgUtils.GetValue(nvc, "wrongkey"));
-            Assert.AreEqual("defaultValue", ArgUtils.GetValue(null, "wrongkey", "defaultValue"));
-            Assert.AreEqual("defaultValue", ArgUtils.GetValue(nvc, "wrongkey", "defaultValue"));
+            ClassicAssert.AreEqual( null,  ArgUtils.GetValue(null, "key"));
+            ClassicAssert.AreEqual("value", ArgUtils.GetValue(nvc, "key"));
+            ClassicAssert.AreEqual(null, ArgUtils.GetValue(nvc, "wrongkey"));
+            ClassicAssert.AreEqual("defaultValue", ArgUtils.GetValue(null, "wrongkey", "defaultValue"));
+            ClassicAssert.AreEqual("defaultValue", ArgUtils.GetValue(nvc, "wrongkey", "defaultValue"));
         }
 
         [Test]
         public void Coalesce()
         {
-            Assert.AreEqual(null, ArgUtils.Coalesce());
-            Assert.AreEqual(null, ArgUtils.Coalesce(null, null));
-            Assert.AreEqual("x", ArgUtils.Coalesce(string.Empty, null, "x"));
+            ClassicAssert.AreEqual(null, ArgUtils.Coalesce());
+            ClassicAssert.AreEqual(null, ArgUtils.Coalesce(null, null));
+            ClassicAssert.AreEqual("x", ArgUtils.Coalesce(string.Empty, null, "x"));
             // null predicate causes the use the default predicate of (v!=null)
-            Assert.AreEqual(string.Empty, ArgUtils.Coalesce( (Predicate<string>)null, string.Empty, (string)null, "x"));
-            Assert.AreEqual(null, ArgUtils.Coalesce<object>( delegate(object v) { return v != null; } ));
-            Assert.AreEqual(string.Empty, ArgUtils.Coalesce<object>( delegate(object v) { return v != null; }, null, string.Empty, "x"));
+            ClassicAssert.AreEqual(string.Empty, ArgUtils.Coalesce( (Predicate<string>)null, string.Empty, (string)null, "x"));
+            ClassicAssert.AreEqual(null, ArgUtils.Coalesce<object>( delegate(object v) { return v != null; } ));
+            ClassicAssert.AreEqual(string.Empty, ArgUtils.Coalesce<object>( delegate(object v) { return v != null; }, null, string.Empty, "x"));
         }
 
         [Test]
         public void TryParseEnum()
         {
-            Assert.Throws( 
+            ClassicAssert.Throws( 
                 Is.TypeOf<ArgumentException>().And.Message.EqualTo( string.Format("Type '{0}' is not an enum type", typeof(int).FullName) )
                 , delegate
                     {
@@ -67,15 +68,15 @@ namespace Common.Logging.Configuration
                     }
                 );
 
-            Assert.AreEqual( LogLevel.Fatal, ArgUtils.TryParseEnum(LogLevel.All, "fatal") );
-            Assert.AreEqual( LogLevel.Debug, ArgUtils.TryParseEnum(LogLevel.Debug, "invalid value") );
-            Assert.AreEqual( LogLevel.Debug, ArgUtils.TryParseEnum(LogLevel.Debug, null) );
+            ClassicAssert.AreEqual( LogLevel.Fatal, ArgUtils.TryParseEnum(LogLevel.All, "fatal") );
+            ClassicAssert.AreEqual( LogLevel.Debug, ArgUtils.TryParseEnum(LogLevel.Debug, "invalid value") );
+            ClassicAssert.AreEqual( LogLevel.Debug, ArgUtils.TryParseEnum(LogLevel.Debug, null) );
         }
 
         [Test]
         public void TryParse()
         {
-            Assert.Throws( 
+            ClassicAssert.Throws( 
                 Is.TypeOf<ArgumentException>()
                 .And.Message.EqualTo(string.Format("There is no parser registered for type {0}", typeof(object).FullName))
                 , delegate
@@ -84,20 +85,20 @@ namespace Common.Logging.Configuration
                     }
                 );
 
-            Assert.AreEqual( true, ArgUtils.TryParse(false, "trUE") );
-            Assert.AreEqual( 1, ArgUtils.TryParse(2, "1") );
-            Assert.AreEqual( 2, ArgUtils.TryParse(2, "2invalidnumber1") );
-            Assert.AreEqual( (short)1, ArgUtils.TryParse((short)2, "1") );
-            Assert.AreEqual( (long)1, ArgUtils.TryParse((long)2, "1") );
-            Assert.AreEqual( (float)1, ArgUtils.TryParse((float)2, "1") );
-            Assert.AreEqual( (double)1, ArgUtils.TryParse((double)2, "1") );
-            Assert.AreEqual( (decimal)1, ArgUtils.TryParse((decimal)2, "1") );
+            ClassicAssert.AreEqual( true, ArgUtils.TryParse(false, "trUE") );
+            ClassicAssert.AreEqual( 1, ArgUtils.TryParse(2, "1") );
+            ClassicAssert.AreEqual( 2, ArgUtils.TryParse(2, "2invalidnumber1") );
+            ClassicAssert.AreEqual( (short)1, ArgUtils.TryParse((short)2, "1") );
+            ClassicAssert.AreEqual( (long)1, ArgUtils.TryParse((long)2, "1") );
+            ClassicAssert.AreEqual( (float)1, ArgUtils.TryParse((float)2, "1") );
+            ClassicAssert.AreEqual( (double)1, ArgUtils.TryParse((double)2, "1") );
+            ClassicAssert.AreEqual( (decimal)1, ArgUtils.TryParse((decimal)2, "1") );
         }
 
         [Test]
         public void AssertIsAssignable()
         {
-            Assert.Throws(
+            ClassicAssert.Throws(
                 Is.TypeOf<ArgumentNullException>()
                     .And.Message.EqualTo(new ArgumentNullException("valType").Message)
                 , delegate
@@ -107,7 +108,7 @@ namespace Common.Logging.Configuration
                 );
 
 #if !PORTABLE
-            Assert.Throws(
+            ClassicAssert.Throws(
                 Is.TypeOf<ArgumentOutOfRangeException>()
                     .And.Message.EqualTo(new ArgumentOutOfRangeException("this", this.GetType(),string.Format("Type '{0}' of parameter '{1}' is not assignable to target type '{2}'"
                                                , this.GetType().AssemblyQualifiedName
@@ -121,18 +122,18 @@ namespace Common.Logging.Configuration
 #endif
 
             Type type = typeof(Int32);
-            Assert.AreSame(type, ArgUtils.AssertIsAssignable<IConvertible>("arg", type));
+            ClassicAssert.AreSame(type, ArgUtils.AssertIsAssignable<IConvertible>("arg", type));
         }
 
         [Test]
         public void AssertNotNullThrowsArgumentNullException()
         {
             object tmp = new object();
-            Assert.AreSame(tmp, ArgUtils.AssertNotNull("arg", tmp));
-            Assert.Throws(Is.TypeOf<ArgumentNullException>()
+            ClassicAssert.AreSame(tmp, ArgUtils.AssertNotNull("arg", tmp));
+            ClassicAssert.Throws(Is.TypeOf<ArgumentNullException>()
                           .And.Message.EqualTo(new ArgumentNullException("tmp").Message),
                           delegate { ArgUtils.AssertNotNull("tmp", (object)null); });
-            Assert.Throws(Is.TypeOf<ArgumentNullException>().And.Message.EqualTo(new ArgumentNullException("tmp", "message msgarg").Message),
+            ClassicAssert.Throws(Is.TypeOf<ArgumentNullException>().And.Message.EqualTo(new ArgumentNullException("tmp", "message msgarg").Message),
                           delegate { ArgUtils.AssertNotNull("tmp", (object)null, "message {0}", "msgarg"); });
         }
 
@@ -140,16 +141,16 @@ namespace Common.Logging.Configuration
         public void Guard()
         {
             ArgUtils.Guard(delegate { }, "format {0}", "fmtarg");
-            Assert.AreEqual(1, ArgUtils.Guard<int>(delegate { return 1; }, "format {0}", "fmtarg"));
+            ClassicAssert.AreEqual(1, ArgUtils.Guard<int>(delegate { return 1; }, "format {0}", "fmtarg"));
 
-            Assert.Throws(Is.TypeOf<ConfigurationException>()
+            ClassicAssert.Throws(Is.TypeOf<ConfigurationException>()
                           .And.Message.EqualTo("innermessage"),
                           delegate 
                           { 
                               ArgUtils.Guard(delegate { throw new ConfigurationException("innermessage"); }, "format {0}", "fmtarg"); 
                           });
             
-            Assert.Throws(Is.TypeOf<ConfigurationException>()
+            ClassicAssert.Throws(Is.TypeOf<ConfigurationException>()
                           .And.Message.EqualTo("format fmtarg"), 
                           delegate 
                           { 

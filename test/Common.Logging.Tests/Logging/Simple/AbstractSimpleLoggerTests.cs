@@ -21,6 +21,7 @@
 using System;
 using Common.Logging.Configuration;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Common.Logging.Simple
 {
@@ -58,7 +59,7 @@ namespace Common.Logging.Simple
         public void IsSerializable()
         {
 #if !PORTABLE
-            Assert.IsTrue(SerializationTestUtils.IsSerializable<AbstractSimpleLogger>());
+            ClassicAssert.IsTrue(SerializationTestUtils.IsSerializable<AbstractSimpleLogger>());
 #endif
         }
 
@@ -67,13 +68,13 @@ namespace Common.Logging.Simple
         {
             AbstractSimpleLogger logger;
             logger = (AbstractSimpleLogger)new ConcreteLoggerFactory(null).GetLogger("x");
-            Assert.AreEqual("x", logger.Name);
-            Assert.AreEqual(true, logger.ShowLogName);
-            Assert.AreEqual(true, logger.ShowDateTime);
-            Assert.AreEqual(true, logger.ShowLevel);
-            Assert.AreEqual(false, logger.HasDateTimeFormat);
-            Assert.AreEqual(string.Empty, logger.DateTimeFormat);
-            Assert.AreEqual(LogLevel.All, logger.CurrentLogLevel);
+            ClassicAssert.AreEqual("x", logger.Name);
+            ClassicAssert.AreEqual(true, logger.ShowLogName);
+            ClassicAssert.AreEqual(true, logger.ShowDateTime);
+            ClassicAssert.AreEqual(true, logger.ShowLevel);
+            ClassicAssert.AreEqual(false, logger.HasDateTimeFormat);
+            ClassicAssert.AreEqual(string.Empty, logger.DateTimeFormat);
+            ClassicAssert.AreEqual(LogLevel.All, logger.CurrentLogLevel);
         }
 
         [Test]
@@ -88,13 +89,13 @@ namespace Common.Logging.Simple
 
             AbstractSimpleLogger logger;
             logger = (AbstractSimpleLogger)new ConcreteLoggerFactory(props).GetLogger("x");
-            Assert.AreEqual("x", logger.Name);
-            Assert.AreEqual(false, logger.ShowLogName);
-            Assert.AreEqual(false, logger.ShowDateTime);
-            Assert.AreEqual(false, logger.ShowLevel);
-            Assert.AreEqual(true, logger.HasDateTimeFormat);
-            Assert.AreEqual("MM", logger.DateTimeFormat);
-            Assert.AreEqual(LogLevel.Info, logger.CurrentLogLevel);
+            ClassicAssert.AreEqual("x", logger.Name);
+            ClassicAssert.AreEqual(false, logger.ShowLogName);
+            ClassicAssert.AreEqual(false, logger.ShowDateTime);
+            ClassicAssert.AreEqual(false, logger.ShowLevel);
+            ClassicAssert.AreEqual(true, logger.HasDateTimeFormat);
+            ClassicAssert.AreEqual("MM", logger.DateTimeFormat);
+            ClassicAssert.AreEqual(LogLevel.Info, logger.CurrentLogLevel);
         }
     }
 }

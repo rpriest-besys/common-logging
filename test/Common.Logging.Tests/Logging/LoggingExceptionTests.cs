@@ -32,7 +32,7 @@ namespace Common.Logging
     [TestFixture]
     public class LoggingExceptionTests : ExceptionsTest
     {
-        [TestFixtureSetUp]
+        [SetUp]
         public void FixtureSetUp()
         {
             AssemblyToCheck = Assembly.GetAssembly(typeof (ConfigurationException));

@@ -25,6 +25,7 @@ using Common.Logging;
 using Common.Logging.Simple;
 using Common.Logging.Configuration;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Common
 {
@@ -92,7 +93,7 @@ namespace Common
                     log.Info(m => m("some logger info {0}", (object)myObj));
                 }
             }
-            Assert.AreEqual(0, adapter.Messages.Count);
+            ClassicAssert.AreEqual(0, adapter.Messages.Count);
 
             // Use configured TraceSource
             traceSource = new TraceSource("DiagnosticsTracePerformanceTest");
@@ -108,7 +109,7 @@ namespace Common
                     }
                 }
             }
-            Assert.AreEqual(0, listener.Messages.Count);
+            ClassicAssert.AreEqual(0, listener.Messages.Count);
         }
     }
 

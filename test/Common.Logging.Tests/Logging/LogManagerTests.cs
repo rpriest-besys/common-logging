@@ -23,6 +23,7 @@ using System.Diagnostics;
 using Common.Logging.Configuration;
 using Common.Logging.Simple;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Rhino.Mocks;
 
 namespace Common.Logging
@@ -48,18 +49,18 @@ namespace Common.Logging
         {
             ILoggerFactoryAdapter adapter = new NoOpLoggerFactoryAdapter();
             LogManager.Adapter = adapter;
-            Assert.AreSame(adapter, LogManager.Adapter);
+            ClassicAssert.AreSame(adapter, LogManager.Adapter);
 
-            Assert.Throws<ArgumentNullException>(delegate { LogManager.Adapter = null; });
+            ClassicAssert.Throws<ArgumentNullException>(delegate { LogManager.Adapter = null; });
         }
 
         [Test]
         public void Reset()
         {
             LogManager.Reset();
-            Assert.IsInstanceOf<DefaultConfigurationReader>(LogManager.ConfigurationReader);
+            ClassicAssert.IsInstanceOf<DefaultConfigurationReader>(LogManager.ConfigurationReader);
 
-            Assert.Throws<ArgumentNullException>(delegate { LogManager.Reset(null); });
+            ClassicAssert.Throws<ArgumentNullException>(delegate { LogManager.Reset(null); });
 
             IConfigurationReader r = mocks.StrictMock<IConfigurationReader>();
             using (mocks.Record())
@@ -69,7 +70,7 @@ namespace Common.Logging
             using(mocks.Playback())
             {
                 LogManager.Reset(r);
-                Assert.IsInstanceOf<TraceLoggerFactoryAdapter>(LogManager.Adapter);
+                ClassicAssert.IsInstanceOf<TraceLoggerFactoryAdapter>(LogManager.Adapter);
             }
         }
 
@@ -92,21 +93,21 @@ namespace Common.Logging
                 // accepts null sectionhandler return
                 LogManager.Reset(r);
                 log = LogManager.GetLogger<LogManagerTests>();
-                Assert.AreEqual(typeof(NoOpLogger), log.GetType());
+                ClassicAssert.AreEqual(typeof(NoOpLogger), log.GetType());
 
                 // accepts ILoggerFactoryAdapter sectionhandler returns
                 LogManager.Reset(r);
                 log = LogManager.GetLogger(typeof(LogManagerTests));
-                Assert.AreEqual(typeof(TraceLogger), log.GetType());
+                ClassicAssert.AreEqual(typeof(TraceLogger), log.GetType());
 
                 // accepts LogSetting sectionhandler returns
                 LogManager.Reset(r);
                 log = LogManager.GetLogger(typeof(LogManagerTests));
-                Assert.AreEqual(typeof(ConsoleOutLogger), log.GetType());
+                ClassicAssert.AreEqual(typeof(ConsoleOutLogger), log.GetType());
 
                 // every other return type throws ConfigurationException
                 LogManager.Reset(r);
-                Assert.Throws(Is.TypeOf<ConfigurationException>()
+                ClassicAssert.Throws(Is.TypeOf<ConfigurationException>()
                                 .And.Message.EqualTo(string.Format("ConfigurationReader {0} returned unknown settings instance of type System.Object", r.GetType().Name))
                                 , delegate
                                       {
@@ -129,7 +130,7 @@ namespace Common.Logging
                 }
             });
             log = LogManager.GetLogger<LogManagerTests>();
-            Assert.AreEqual(typeof(TraceLogger), log.GetType());
+            ClassicAssert.AreEqual(typeof(TraceLogger), log.GetType());
 
             // accepts parameterized factory adapter
             LogManager.Configure(new LogConfiguration()
@@ -148,8 +149,8 @@ namespace Common.Logging
                 }
             });
             log = LogManager.GetLogger<LogManagerTests>();
-            Assert.AreEqual(typeof(DebugOutLogger), log.GetType());
-            Assert.AreEqual(true, ((DebugOutLogger) log).ShowLogName);
+            ClassicAssert.AreEqual(typeof(DebugOutLogger), log.GetType());
+            ClassicAssert.AreEqual(true, ((DebugOutLogger) log).ShowLogName);
         }
 
         [Test]
@@ -162,61 +163,69 @@ namespace Common.Logging
       </factoryAdapter>
     </logging>";
             ILog log = GetLog(xml);
-            Assert.IsAssignableFrom(typeof(ConsoleOutLogger), log);
+            ClassicAssert.IsAssignableFrom(typeof(ConsoleOutLogger), log);
         }
 
 
         [Test]
-        [ExpectedException(typeof(ConfigurationException))]
         public void InvalidAdapterType()
         {
-            const string xml =
-                @"<?xml version='1.0' encoding='UTF-8' ?>
-    <logging>
-      <factoryAdapter type='Common.Logging.Simple.NonExistentAdapter, Common.Logging'>
-      </factoryAdapter>
-    </logging>";
-            GetLog(xml);
-        }
+            Assert.Throws<ConfigurationException>(() =>
+            {
+                const string xml =
+                    @"<?xml version='1.0' encoding='UTF-8' ?>
+        <logging>
+          <factoryAdapter type='Common.Logging.Simple.NonExistentAdapter, Common.Logging'>
+          </factoryAdapter>
+        </logging>";
+                GetLog(xml);
+            });
+}
 
         [Test]
-        [ExpectedException(typeof(ConfigurationException))]
         public void AdapterDoesNotImplementInterface()
         {
-            const string xml =
-                @"<?xml version='1.0' encoding='UTF-8' ?>
-    <logging>
-      <factoryAdapter type='Common.Logging.StandaloneConfigurationReader, Common.Logging.Tests'>
-      </factoryAdapter>
-    </logging>";
-            GetLog(xml);
-        }
+            Assert.Throws<ConfigurationException>(() =>
+            {
+                const string xml =
+                    @"<?xml version='1.0' encoding='UTF-8' ?>
+        <logging>
+          <factoryAdapter type='Common.Logging.StandaloneConfigurationReader, Common.Logging.Tests'>
+          </factoryAdapter>
+        </logging>";
+                GetLog(xml);
+              });
+         }
 
         [Test]
-        [ExpectedException(typeof(ConfigurationException))]
         public void AdapterDoesNotHaveCorrectCtors()
         {
-            const string xml =
-                @"<?xml version='1.0' encoding='UTF-8' ?>
-    <logging>
-      <factoryAdapter type='Common.Logging.MissingCtorFactoryAdapter, Common.Logging.Tests'>
-      </factoryAdapter>
-    </logging>";
-            GetLog(xml);
+            Assert.Throws<ConfigurationException>(() =>
+            {
+                const string xml =
+                    @"<?xml version='1.0' encoding='UTF-8' ?>
+        <logging>
+          <factoryAdapter type='Common.Logging.MissingCtorFactoryAdapter, Common.Logging.Tests'>
+          </factoryAdapter>
+        </logging>";
+                GetLog(xml);
+            });
         }
 
         [Test]
-        [ExpectedException(typeof(ConfigurationException))]
         public void AdapterDoesNotHaveCorrectCtorsWithArgs()
         {
-            const string xml =
-                @"<?xml version='1.0' encoding='UTF-8' ?>
-    <logging>
-      <factoryAdapter type='Common.Logging.MissingCtorFactoryAdapter, Common.Logging.Tests'>
-            <arg key='level' value='DEBUG' />
-      </factoryAdapter>
-    </logging>";
-            GetLog(xml);
+            Assert.Throws<ConfigurationException>(() =>
+            {
+                const string xml =
+                    @"<?xml version='1.0' encoding='UTF-8' ?>
+        <logging>
+          <factoryAdapter type='Common.Logging.MissingCtorFactoryAdapter, Common.Logging.Tests'>
+                <arg key='level' value='DEBUG' />
+          </factoryAdapter>
+        </logging>";
+                GetLog(xml);
+            });
         }
 
         [Test]
@@ -234,7 +243,7 @@ namespace Common.Logging
             ILog log = GetLog(xml);
             // lack of proper config section fallsback to no-op logging.
             NoOpLogger noOpLogger = log as NoOpLogger;
-            Assert.IsNotNull(noOpLogger);
+            ClassicAssert.IsNotNull(noOpLogger);
         }
 
         private static ILog GetLog(string xml)
@@ -249,7 +258,7 @@ namespace Common.Logging
         {
             LogManager.Adapter = new ConsoleOutLoggerFactoryAdapter();
             ConsoleOutLogger log = (ConsoleOutLogger)LogManager.GetCurrentClassLogger();
-            Assert.AreEqual(this.GetType().FullName, log.Name);
+            ClassicAssert.AreEqual(this.GetType().FullName, log.Name);
         }
 
     }

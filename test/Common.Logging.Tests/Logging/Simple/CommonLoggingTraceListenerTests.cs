@@ -21,6 +21,7 @@
 using System.Collections.Specialized;
 using System.Diagnostics;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Common.Logging.Simple
 {
@@ -56,10 +57,10 @@ namespace Common.Logging.Simple
             factoryAdapter.ClearLastEvent();
             l.DefaultTraceEventType = TraceEventType.Warning;
             l.Write("some message", "some category");
-            Assert.AreEqual(string.Format("{0}.{1}", l.Name, "some category"), factoryAdapter.LastEvent.Source.Name);
-            Assert.AreEqual(LogLevel.Warn, factoryAdapter.LastEvent.Level);
-            Assert.AreEqual("some message", factoryAdapter.LastEvent.RenderedMessage);
-            Assert.AreEqual(null, factoryAdapter.LastEvent.Exception);
+            ClassicAssert.AreEqual(string.Format("{0}.{1}", l.Name, "some category"), factoryAdapter.LastEvent.Source.Name);
+            ClassicAssert.AreEqual(LogLevel.Warn, factoryAdapter.LastEvent.Level);
+            ClassicAssert.AreEqual("some message", factoryAdapter.LastEvent.RenderedMessage);
+            ClassicAssert.AreEqual(null, factoryAdapter.LastEvent.Exception);
         }
 
         [Test]
@@ -85,10 +86,10 @@ namespace Common.Logging.Simple
             factoryAdapter.ClearLastEvent();
             l.DefaultTraceEventType = TraceEventType.Warning;
             l.Write("some message", null);
-            Assert.AreEqual(string.Format("{0}.{1}", l.Name, ""), factoryAdapter.LastEvent.Source.Name);
-            Assert.AreEqual(LogLevel.Warn, factoryAdapter.LastEvent.Level);
-            Assert.AreEqual("some message", factoryAdapter.LastEvent.RenderedMessage);
-            Assert.AreEqual(null, factoryAdapter.LastEvent.Exception);
+            ClassicAssert.AreEqual(string.Format("{0}.{1}", l.Name, ""), factoryAdapter.LastEvent.Source.Name);
+            ClassicAssert.AreEqual(LogLevel.Warn, factoryAdapter.LastEvent.Level);
+            ClassicAssert.AreEqual("some message", factoryAdapter.LastEvent.RenderedMessage);
+            ClassicAssert.AreEqual(null, factoryAdapter.LastEvent.Exception);
         }
 
         private void AssertExpectedLogLevel(CommonLoggingTraceListener l, TraceEventType eventType, LogLevel expectedLogLevel)
@@ -96,10 +97,10 @@ namespace Common.Logging.Simple
             CapturingLoggerFactoryAdapter factoryAdapter = (CapturingLoggerFactoryAdapter)LogManager.Adapter;
             factoryAdapter.Clear();
             l.TraceEvent(null, "sourceName " + eventType, eventType, -1, "format {0}", eventType);
-            Assert.AreEqual(string.Format("{0}.{1}", l.Name, "sourceName " + eventType), factoryAdapter.LastEvent.Source.Name);
-            Assert.AreEqual(expectedLogLevel, factoryAdapter.LastEvent.Level);
-            Assert.AreEqual("format " + eventType, factoryAdapter.LastEvent.RenderedMessage);
-            Assert.AreEqual(null, factoryAdapter.LastEvent.Exception);
+            ClassicAssert.AreEqual(string.Format("{0}.{1}", l.Name, "sourceName " + eventType), factoryAdapter.LastEvent.Source.Name);
+            ClassicAssert.AreEqual(expectedLogLevel, factoryAdapter.LastEvent.Level);
+            ClassicAssert.AreEqual("format " + eventType, factoryAdapter.LastEvent.RenderedMessage);
+            ClassicAssert.AreEqual(null, factoryAdapter.LastEvent.Exception);
         }
 
         [Test]
@@ -112,7 +113,7 @@ namespace Common.Logging.Simple
             l.Filter = new EventTypeFilter(SourceLevels.Warning);
             factoryAdapter.ClearLastEvent();
             l.TraceEvent(null, "sourceName", TraceEventType.Information, -1, "format {0}", "Information");
-            Assert.AreEqual(null, factoryAdapter.LastEvent);
+            ClassicAssert.AreEqual(null, factoryAdapter.LastEvent);
 
             AssertExpectedLogLevel(l, TraceEventType.Warning, LogLevel.Warn);
             AssertExpectedLogLevel(l, TraceEventType.Error, LogLevel.Error);
@@ -137,9 +138,9 @@ namespace Common.Logging.Simple
             props["LoggerNameFormat"] = "{0}-{1}";
             l = new CommonLoggingTraceListener(props);
 
-            Assert.AreEqual("TestName", l.Name);
-            Assert.AreEqual(TraceEventType.Information, l.DefaultTraceEventType);
-            Assert.AreEqual("{0}-{1}", l.LoggerNameFormat);
+            ClassicAssert.AreEqual("TestName", l.Name);
+            ClassicAssert.AreEqual(TraceEventType.Information, l.DefaultTraceEventType);
+            ClassicAssert.AreEqual("{0}-{1}", l.LoggerNameFormat);
         }
 
         [Test]
@@ -157,16 +158,16 @@ namespace Common.Logging.Simple
 
             // values are trimmed and case-insensitive, empty values ignored
             l = new CommonLoggingTraceListener("; DefaultTraceeventtype   =warninG; loggernameFORMAT= {listenerName}-{sourceName}\t; Name =  TestName\t; ");
-            Assert.AreEqual("TestName", l.Name);
-            Assert.AreEqual(TraceEventType.Warning, l.DefaultTraceEventType);
-            Assert.AreEqual("{listenerName}-{sourceName}", l.LoggerNameFormat);
+            ClassicAssert.AreEqual("TestName", l.Name);
+            ClassicAssert.AreEqual(TraceEventType.Warning, l.DefaultTraceEventType);
+            ClassicAssert.AreEqual("{listenerName}-{sourceName}", l.LoggerNameFormat);
         }
 
         private void AssertDefaultSettings(CommonLoggingTraceListener l)
         {
-            Assert.AreEqual("Diagnostics", l.Name);
-            Assert.AreEqual(TraceEventType.Verbose, l.DefaultTraceEventType);
-            Assert.AreEqual("{listenerName}.{sourceName}", l.LoggerNameFormat);
+            ClassicAssert.AreEqual("Diagnostics", l.Name);
+            ClassicAssert.AreEqual(TraceEventType.Verbose, l.DefaultTraceEventType);
+            ClassicAssert.AreEqual("{listenerName}.{sourceName}", l.LoggerNameFormat);
         }
     }
 }

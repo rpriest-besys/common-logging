@@ -19,6 +19,7 @@
 #endregion
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Common.Logging.Simple
 {
@@ -42,15 +43,15 @@ namespace Common.Logging.Simple
         {
             ILog log = LogManager.GetCurrentClassLogger();
 
-            Assert.IsNotNull(log);
-            Assert.IsInstanceOf<ConsoleOutLogger>(log);
+            ClassicAssert.IsNotNull(log);
+            ClassicAssert.IsInstanceOf<ConsoleOutLogger>(log);
 
             // Can we call level checkers with no exceptions?
-            Assert.IsTrue(log.IsDebugEnabled);
-            Assert.IsTrue(log.IsInfoEnabled);
-            Assert.IsTrue(log.IsWarnEnabled);
-            Assert.IsTrue(log.IsErrorEnabled);
-            Assert.IsTrue(log.IsFatalEnabled);
+            ClassicAssert.IsTrue(log.IsDebugEnabled);
+            ClassicAssert.IsTrue(log.IsInfoEnabled);
+            ClassicAssert.IsTrue(log.IsWarnEnabled);
+            ClassicAssert.IsTrue(log.IsErrorEnabled);
+            ClassicAssert.IsTrue(log.IsFatalEnabled);
         }
     }
 }

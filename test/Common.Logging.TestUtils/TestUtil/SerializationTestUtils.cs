@@ -23,6 +23,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Common.Logging
 {
@@ -39,24 +40,27 @@ namespace Common.Logging
         #region Test Ourselves
 
         [Test]
-        [ExpectedException(typeof(SerializationException))]
         public void WithNonSerializableObject()
         {
-            TestObject o = new TestObject();
-            Assert.IsFalse(o is ISerializable);
-            Assert.IsFalse(IsSerializable(o));
-            TrySerialization(o);
+            Assert.Throws<SerializationException>(() =>
+            {
+                TestObject o = new TestObject();
+                ClassicAssert.IsFalse(o is ISerializable);
+                ClassicAssert.IsFalse(IsSerializable(o));
+                TrySerialization(o);
+            });
+
         }
 
         [Test]
         public void WithSerializableObject()
         {
             SerializableTestObject pA = new SerializableTestObject("propA");
-            Assert.IsTrue(IsSerializable(pA));
+            ClassicAssert.IsTrue(IsSerializable(pA));
             TrySerialization(pA);
             SerializableTestObject pB = SerializeAndDeserialize(pA);
-            Assert.IsFalse(ReferenceEquals(pA, pB));
-            Assert.AreEqual(pA.SomeProperty, pB.SomeProperty);
+            ClassicAssert.IsFalse(ReferenceEquals(pA, pB));
+            ClassicAssert.AreEqual(pA.SomeProperty, pB.SomeProperty);
         }
 
         #endregion

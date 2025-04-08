@@ -27,6 +27,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 #endregion
 
@@ -71,7 +72,7 @@ namespace Common
         {
             // check to see that the exception is correctly named, with "Exception" at the end
             bool nameIsValid = t.Name.EndsWith("Exception");
-            Assert.IsTrue(nameIsValid, t.Name + " class name must end with Exception.");
+            ClassicAssert.IsTrue(nameIsValid, t.Name + " class name must end with Exception.");
             if (t.IsAbstract)
             {
                 return;
@@ -103,7 +104,7 @@ namespace Common
                                           typeof (StreamingContext));
             }
             // check to see if the type is marked as serializable
-            Assert.IsTrue(t.IsSerializable, t.Name + " is not serializable, missing [Serializable]?");
+            ClassicAssert.IsTrue(t.IsSerializable, t.Name + " is not serializable, missing [Serializable]?");
 #endif
             // check to see if there are any public fields. These should be properties instead...
             FieldInfo[] publicFields =
@@ -112,7 +113,7 @@ namespace Common
             {
                 foreach (FieldInfo fieldInfo in publicFields)
                 {
-                    Assert.Fail(t.Name + "." + fieldInfo.Name +
+                    ClassicAssert.Fail(t.Name + "." + fieldInfo.Name +
                                 " is a public field, should be exposed through property instead.");
                 }
             }
@@ -129,7 +130,7 @@ namespace Common
                     t.GetMethod("GetObjectData", BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance) ==
                     null)
                 {
-                    Assert.Fail(t.Name + " does not implement GetObjectData but has private fields.");
+                    ClassicAssert.Fail(t.Name + " does not implement GetObjectData but has private fields.");
                 }
             }
             if (!t.IsAbstract)
@@ -152,17 +153,17 @@ namespace Common
                 t.GetConstructor(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance, null, parameters,
                                  null);
             // fail if constructor does not exist
-            Assert.IsNotNull(ci, t.Name + description + " is a required constructor.");
+            ClassicAssert.IsNotNull(ci, t.Name + description + " is a required constructor.");
             // fail if constructor is private
-            Assert.IsFalse(ci.IsPrivate, t.Name + description + " is private, must be public.");
+            ClassicAssert.IsFalse(ci.IsPrivate, t.Name + description + " is private, must be public.");
             // fail if constructor is protected
-            Assert.IsFalse(ci.IsFamily, t.Name + description + " is internal, must be public.");
+            ClassicAssert.IsFalse(ci.IsFamily, t.Name + description + " is internal, must be public.");
             // fail if constructor is internal
-            Assert.IsFalse(ci.IsAssembly, t.Name + description + " is internal, must be public.");
+            ClassicAssert.IsFalse(ci.IsAssembly, t.Name + description + " is internal, must be public.");
             // fail if constructor is protected internal
-            Assert.IsFalse(ci.IsFamilyOrAssembly, t.Name + description + " is protected internal, must be public.");
+            ClassicAssert.IsFalse(ci.IsFamilyOrAssembly, t.Name + description + " is protected internal, must be public.");
             // sanity check to make sure the constructor is public
-            Assert.IsTrue(ci.IsPublic, t.Name + description + " is not public, must be public.");
+            ClassicAssert.IsTrue(ci.IsPublic, t.Name + description + " is not public, must be public.");
         }
 
         private void CheckProtectedConstructor(Type t, string description, params Type[] parameters)
@@ -172,17 +173,17 @@ namespace Common
                 t.GetConstructor(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance, null, parameters,
                                  null);
             // fail if constructor does not exist
-            Assert.IsNotNull(ci, t.Name + description + " is a required constructor.");
+            ClassicAssert.IsNotNull(ci, t.Name + description + " is a required constructor.");
             // fail if constructor is public
-            Assert.IsFalse(ci.IsPublic, t.Name + description + " is public, must be protected.");
+            ClassicAssert.IsFalse(ci.IsPublic, t.Name + description + " is public, must be protected.");
             // fail if constructor is private
-            Assert.IsFalse(ci.IsPrivate, t.Name + description + " is private, must be public or protected.");
+            ClassicAssert.IsFalse(ci.IsPrivate, t.Name + description + " is private, must be public or protected.");
             // fail if constructor is internal
-            Assert.IsFalse(ci.IsAssembly, t.Name + description + " is internal, must be protected.");
+            ClassicAssert.IsFalse(ci.IsAssembly, t.Name + description + " is internal, must be protected.");
             // fail if constructor is protected internal
-            Assert.IsFalse(ci.IsFamilyOrAssembly, t.Name + description + " is protected internal, must be protected.");
+            ClassicAssert.IsFalse(ci.IsFamilyOrAssembly, t.Name + description + " is protected internal, must be protected.");
             // sanity check to make sure the constructor is protected
-            Assert.IsTrue(ci.IsFamily, t.Name + description + " is not protected, must be protected.");
+            ClassicAssert.IsTrue(ci.IsFamily, t.Name + description + " is not protected, must be protected.");
         }
 
         private void CheckPrivateConstructor(Type t, string description, params Type[] parameters)
@@ -192,17 +193,17 @@ namespace Common
                 t.GetConstructor(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance, null, parameters,
                                  null);
             // fail if constructor does not exist
-            Assert.IsNotNull(ci, t.Name + description + " is a required constructor.");
+            ClassicAssert.IsNotNull(ci, t.Name + description + " is a required constructor.");
             // fail if constructor is public
-            Assert.IsFalse(ci.IsPublic, t.Name + description + " is public, must be private.");
+            ClassicAssert.IsFalse(ci.IsPublic, t.Name + description + " is public, must be private.");
             // fail if constructor is protected
-            Assert.IsFalse(ci.IsFamily, t.Name + description + " is protected, must be private.");
+            ClassicAssert.IsFalse(ci.IsFamily, t.Name + description + " is protected, must be private.");
             // fail if constructor is internal
-            Assert.IsFalse(ci.IsAssembly, t.Name + description + " is internal, must be private.");
+            ClassicAssert.IsFalse(ci.IsAssembly, t.Name + description + " is internal, must be private.");
             // fail if constructor is protected internal
-            Assert.IsFalse(ci.IsFamilyOrAssembly, t.Name + description + " is protected internal, must be private.");
+            ClassicAssert.IsFalse(ci.IsFamilyOrAssembly, t.Name + description + " is protected internal, must be private.");
             // sanity check to make sure the constructor is private
-            Assert.IsTrue(ci.IsPrivate, t.Name + description + " is not private, must be private.");
+            ClassicAssert.IsTrue(ci.IsPrivate, t.Name + description + " is not private, must be private.");
         }
 
         /// <summary>
@@ -219,30 +220,30 @@ namespace Common
             }
             catch (Exception ex)
             {
-                Assert.Fail("Ctor () for '" + t.Name + "' threw an exception : " + ex.Message);
+                ClassicAssert.Fail("Ctor () for '" + t.Name + "' threw an exception : " + ex.Message);
             }
             ctor = t.GetConstructor(new Type[] {typeof (string)});
             try
             {
                 Exception ex = (Exception) ctor.Invoke(new object[] {"My Fingers Turn To Fists"});
-                Assert.IsNotNull(ex.Message, t.Name + "'s Message was null.");
+                ClassicAssert.IsNotNull(ex.Message, t.Name + "'s Message was null.");
             }
             catch (Exception ex)
             {
-                Assert.Fail("Ctor (string) for '" + t.Name + "' threw an exception : " + ex.Message);
+                ClassicAssert.Fail("Ctor (string) for '" + t.Name + "' threw an exception : " + ex.Message);
             }
             ctor = t.GetConstructor(new Type[] {typeof (string), typeof (Exception)});
             try
             {
                 Exception ex =
                     (Exception) ctor.Invoke(new object[] {"My Fingers Turn To Fists", new FormatException("Bing")});
-                Assert.IsNotNull(ex.Message, t.Name + "'s Message was null.");
-                Assert.IsNotNull(ex.InnerException, t.Name + "'s InnerException was null.");
-                Assert.AreEqual("Bing", ex.InnerException.Message);
+                ClassicAssert.IsNotNull(ex.Message, t.Name + "'s Message was null.");
+                ClassicAssert.IsNotNull(ex.InnerException, t.Name + "'s InnerException was null.");
+                ClassicAssert.AreEqual("Bing", ex.InnerException.Message);
             }
             catch (Exception ex)
             {
-                Assert.Fail("Ctor (string, Exception) for '" + t.Name + "' threw an exception : " + ex.Message);
+                ClassicAssert.Fail("Ctor (string, Exception) for '" + t.Name + "' threw an exception : " + ex.Message);
             }
             // test the serialization ctor
             try
@@ -254,11 +255,11 @@ namespace Common
                 bf.Serialize(ms, ex);
                 ms.Seek(0, 0);
                 Exception inex = (Exception) bf.Deserialize(ms);
-                Assert.IsNotNull(inex);
+                ClassicAssert.IsNotNull(inex);
             }
             catch (Exception ex)
             {
-                Assert.Fail("Ctor (Serialization) for '" + t.Name + "' threw an exception : " + ex.Message);
+                ClassicAssert.Fail("Ctor (Serialization) for '" + t.Name + "' threw an exception : " + ex.Message);
             }
         }
 

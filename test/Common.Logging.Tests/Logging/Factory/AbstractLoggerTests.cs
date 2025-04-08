@@ -23,6 +23,7 @@ using System.Collections;
 using System.Globalization;
 using System.Reflection;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Rhino.Mocks;
 using Rhino.Mocks.Interfaces;
 using FormatMessageCallback = System.Action<Common.Logging.FormatMessageHandler>;
@@ -53,7 +54,7 @@ namespace Common.Logging.Factory
                 MethodInfo[] logMethods = GetLogMethodSignatures(logLevel);
                 for (int i = 0; i < logLevels.Length; i++)
                 {
-                    Assert.IsNotNull(logMethods[i],
+                    ClassicAssert.IsNotNull(logMethods[i],
                                      "Method with signature #{0} not implemented for level {1}", i, logLevel);
                 }
             }
@@ -87,54 +88,54 @@ namespace Common.Logging.Factory
             LogLevel logLevel = (LogLevel)Enum.Parse(typeof(LogLevel), levelName);
 
             Invoke(log, logMethods[0], "messageObject0");
-            Assert.AreEqual(logLevel, log.LastLogLevel);
-            Assert.AreEqual("messageObject0", log.LastMessage);
-            Assert.AreEqual(null, log.LastException);
+            ClassicAssert.AreEqual(logLevel, log.LastLogLevel);
+            ClassicAssert.AreEqual("messageObject0", log.LastMessage);
+            ClassicAssert.AreEqual(null, log.LastException);
 
             Invoke(log, logMethods[1], "messageObject1", ex);
-            Assert.AreEqual(logLevel, log.LastLogLevel);
-            Assert.AreEqual("messageObject1", log.LastMessage);
-            Assert.AreEqual(ex, log.LastException);
+            ClassicAssert.AreEqual(logLevel, log.LastLogLevel);
+            ClassicAssert.AreEqual("messageObject1", log.LastMessage);
+            ClassicAssert.AreEqual(ex, log.LastException);
 
             Invoke(log, logMethods[2], "format2 {0}", new object[] { "arg2" });
-            Assert.AreEqual(logLevel, log.LastLogLevel);
-            Assert.AreEqual("format2 arg2", log.LastMessage);
-            Assert.AreEqual(null, log.LastException);
+            ClassicAssert.AreEqual(logLevel, log.LastLogLevel);
+            ClassicAssert.AreEqual("format2 arg2", log.LastMessage);
+            ClassicAssert.AreEqual(null, log.LastException);
 
             Invoke(log, logMethods[3], "format3 {0}", ex, new object[] { "arg3" });
-            Assert.AreEqual(logLevel, log.LastLogLevel);
-            Assert.AreEqual("format3 arg3", log.LastMessage);
-            Assert.AreEqual(ex, log.LastException);
+            ClassicAssert.AreEqual(logLevel, log.LastLogLevel);
+            ClassicAssert.AreEqual("format3 arg3", log.LastMessage);
+            ClassicAssert.AreEqual(ex, log.LastException);
 
             Invoke(log, logMethods[4], CultureInfo.CreateSpecificCulture("de-de"), "format4 {0}", new object[] { 4.1 });
-            Assert.AreEqual(logLevel, log.LastLogLevel);
-            Assert.AreEqual("format4 4,1", log.LastMessage);
-            Assert.AreEqual(null, log.LastException);
+            ClassicAssert.AreEqual(logLevel, log.LastLogLevel);
+            ClassicAssert.AreEqual("format4 4,1", log.LastMessage);
+            ClassicAssert.AreEqual(null, log.LastException);
 
             Invoke(log, logMethods[5], CultureInfo.CreateSpecificCulture("de-de"), "format5 {0}", ex, new object[] { 5.1 });
-            Assert.AreEqual(logLevel, log.LastLogLevel);
-            Assert.AreEqual("format5 5,1", log.LastMessage);
-            Assert.AreEqual(ex, log.LastException);
+            ClassicAssert.AreEqual(logLevel, log.LastLogLevel);
+            ClassicAssert.AreEqual("format5 5,1", log.LastMessage);
+            ClassicAssert.AreEqual(ex, log.LastException);
 
             Invoke(log, logMethods[6], TestFormatMessageCallback.MessageCallback("message6"));
-            Assert.AreEqual(logLevel, log.LastLogLevel);
-            Assert.AreEqual("message6", log.LastMessage);
-            Assert.AreEqual(null, log.LastException);
+            ClassicAssert.AreEqual(logLevel, log.LastLogLevel);
+            ClassicAssert.AreEqual("message6", log.LastMessage);
+            ClassicAssert.AreEqual(null, log.LastException);
 
             Invoke(log, logMethods[7], TestFormatMessageCallback.MessageCallback("message7"), ex);
-            Assert.AreEqual(logLevel, log.LastLogLevel);
-            Assert.AreEqual("message7", log.LastMessage);
-            Assert.AreEqual(ex, log.LastException);
+            ClassicAssert.AreEqual(logLevel, log.LastLogLevel);
+            ClassicAssert.AreEqual("message7", log.LastMessage);
+            ClassicAssert.AreEqual(ex, log.LastException);
 
             Invoke(log, logMethods[8], CultureInfo.CreateSpecificCulture("de-de"), TestFormatMessageCallback.MessageCallback("format8 {0}", new object[] { 8.1 }));
-            Assert.AreEqual(logLevel, log.LastLogLevel);
-            Assert.AreEqual("format8 8,1", log.LastMessage);
-            Assert.AreEqual(null, log.LastException);
+            ClassicAssert.AreEqual(logLevel, log.LastLogLevel);
+            ClassicAssert.AreEqual("format8 8,1", log.LastMessage);
+            ClassicAssert.AreEqual(null, log.LastException);
 
             Invoke(log, logMethods[9], CultureInfo.CreateSpecificCulture("de-de"), TestFormatMessageCallback.MessageCallback("format9 {0}", new object[] { 9.1 }), ex);
-            Assert.AreEqual(logLevel, log.LastLogLevel);
-            Assert.AreEqual("format9 9,1", log.LastMessage);
-            Assert.AreEqual(ex, log.LastException);
+            ClassicAssert.AreEqual(logLevel, log.LastLogLevel);
+            ClassicAssert.AreEqual("format9 9,1", log.LastMessage);
+            ClassicAssert.AreEqual(ex, log.LastException);
         }
 
         [Test]
@@ -372,7 +373,7 @@ namespace Common.Logging.Factory
             {
                 if (throwOnInvocation)
                 {
-                    Assert.Fail();
+                    ClassicAssert.Fail();
                 }
                 fmh(messageToReturn, argsToReturn);
             }
@@ -406,7 +407,7 @@ namespace Common.Logging.Factory
 
             protected override void WriteInternal(LogLevel level, object message, Exception exception)
             {
-                Assert.Fail("must never been called - Log() should be called");
+                ClassicAssert.Fail("must never been called - Log() should be called");
             }
 
             public override void Log(LogLevel level, object message, Exception exception)
